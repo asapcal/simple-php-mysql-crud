@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  phpenv:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_DBHOST=mysqldb
+      - MYSQL_DBPORT=3306
+      - MYSQL_DBUSER=root
+      - MYSQL_DBPASS=root
+      - MYSQL_DBNAME=mydb
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 9000:80
+    depends_on:
+      - mysqldb
+  mysqldb:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - 9001:80
+    environment:
+      PMA_ARBITRARY: 1
+    depends_on:
+      - mysqldb
