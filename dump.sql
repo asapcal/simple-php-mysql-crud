@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `lastname` varchar(40) NOT NULL,
   `email` tinytext DEFAULT NULL,
   `password` varchar(40) NOT NULL,
-  `gender` ENUM('Male', 'Female') NOT NULL ,
+  `gender` ENUM('Male', 'Female', 'Unknown') NOT NULL ,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users`(`firstname`, `lastname`, `email`, `password`, `gender`) VALUES
-('Test','Tester','test@testarium.com','123','Male');
+('Test','Tester','test@mail.domain','124','Unknown');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
