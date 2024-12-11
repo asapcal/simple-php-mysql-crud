@@ -8,7 +8,7 @@ Instructions for use:
 
 Install Docker: [Docker Installation Guide](https://docs.docker.com/get-docker/)
 
-Build the app using: docker compose up --build
+Build the app using: docker-compose up --build --abort-on-container-exit --remove-orphans
 
 Access the app in your preferred web browser. Access index.php: http://localhost:9000/
 
