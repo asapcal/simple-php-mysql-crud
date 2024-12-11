@@ -1,9 +1,8 @@
 version: '3.9'
+
 services:
   phpenv:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: php:8.0-apache  # Use the official PHP 8.0 Apache image
     environment:
       - MYSQL_DBHOST=mysqldb
       - MYSQL_DBPORT=3306
@@ -11,27 +10,30 @@ services:
       - MYSQL_DBPASS=root
       - MYSQL_DBNAME=mydb
     volumes:
-      - ./src:/var/www/html
+      - ./src:/var/www/html  # Mount your source code to the container
     ports:
-      - 9000:80
+      - "9000:80"  # Expose port 9000 to the host
     depends_on:
       - mysqldb
+    command: bash -c "apt-get update && apt-get install -y libmariadb-dev && docker-php-ext-install mysqli && apache2-foreground"
+
   mysqldb:
-    image: mysql:8.0.36
+    image: mysql:8.0.36  # Use the official MySQL image
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
-      - 3306:3306
+      - "3306:3306"  # Expose MySQL port to the host
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mydb
     volumes:
-      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql  # Initialize MySQL with a dump file
+
   phpmyadmin:
-    image: phpmyadmin:latest
+    image: phpmyadmin:latest  # Use the official phpMyAdmin image
     restart: always
     ports:
-      - 9001:80
+      - "9001:80"  # Expose phpMyAdmin on port 9001
     environment:
       PMA_ARBITRARY: 1
     depends_on:
