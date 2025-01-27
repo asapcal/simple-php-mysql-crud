@@ -14,6 +14,14 @@ Access the app in your preferred web browser. Access index.php: http://localhost
 
 Access phpMyAdmin. phpMyAdmin: http://localhost:9001/
 
+Kompose test:
+
+Install kind: https://kind.sigs.k8s.io/docs/user/quick-start/
+
+Run: kubectl apply -f . && kubectl get po && kubectl port-forward svc/phpenv 9000:9000
+
+Access the app like in docker section
+
 References and acknowledgments:
 - https://www.simplilearn.com/tutorials/php-tutorial/php-with-sql
 - https://enlear.academy/stop-using-xampp-a-step-by-step-guide-to-docker-for-php-and-mysql-b424f0a7ba41
